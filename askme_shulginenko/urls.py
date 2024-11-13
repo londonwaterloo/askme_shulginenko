@@ -26,8 +26,8 @@ urlpatterns = [
     path('login', views.login, name='login'),
     path('profilesettings', views.profilesettings, name='profile'),
     path('tag/<str:tag_label>', views.tag, name='tag'),
+    path('hot', views.hot, name='hot'),
 
     path('admin/', admin.site.urls),
 
 ]
-

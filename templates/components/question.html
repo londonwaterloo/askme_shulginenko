@@ -6,7 +6,6 @@
             <img src="{%static 'img/heart.svg' %}" alt="heart">
             <span>1</span>
         </button>
-
     </div>
     <div class="col-9">
         <div class="question-title"><a href="{% url 'question' q_id=question.id %}"> {{ question.title }}</a></div>
@@ -20,13 +19,11 @@
             <div class="col mb-5">
                 <span class="tags_title">Tags: </span>
                 <div class="question-tags">
-                    {% for tag in question.tags %}
-                     <a class="tag_in_question" href="{% url 'tag' tag_label=tag%}">{{tag}}</a>
+                    {% for tag in question.tags.all %}
+                     <a class="tag_in_question" href="{% url 'tag' tag_label=tag.title %}">{{ tag.title }}</a>
                     {% endfor %}
                 </div>
-
             </div>
         </div>
     </div>
-
 </div>

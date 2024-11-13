@@ -9,7 +9,6 @@
             <img src="{% static 'img/heart.svg' %}" alt="heart">
             <span>1</span>
         </button>
-
     </div>
     <div class="col-9">
         <div class="question-title"> {{question.title}}</div>
@@ -18,16 +17,15 @@
             <div class="col mb-5">
                 <span class="tags_title_page3">Tags: </span>
                 <div class="question-tags">
-                    {% for tag in question.tags %}
-                    <a class="tag_in_question" href="{% url 'tag' tag_label=tag%}">{{tag}}</a>
+                    {% for tag in question.tags.all %}
+                    <a class="tag_in_question" href="{% url 'tag' tag_label=tag%}">{{ tag }}</a>
                     {% endfor %}
                 </div>
-
             </div>
         </div>
     </div>
-
 </div>
+
 <div>
     <h2> <a name="answers_block">Answers</a> </h2>
     {% for answer in content %}
@@ -36,9 +34,13 @@
     {% include 'components/paginator.html' %}
 </div>
 
-<div class="mb-3">
-    <label for="exampleFormControlTextarea1" class="form-label-page3">Answer a question</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
-</div>
-<button type="button" class="btn btn-secondary">Answer</button>
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label-page3">Answer a question</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" name="answer_text" rows="10"></textarea>
+    </div>
+    <button type="submit" class="btn btn-secondary">Answer</button>
+</form>
+
 {% endblock %}
