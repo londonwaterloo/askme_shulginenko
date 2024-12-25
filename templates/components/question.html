@@ -1,11 +1,17 @@
 {% load static %}
 <div class="row question">
     <div class="col-3">
-        <img src="{% static 'img/question.jpg' %}" alt="" class="question-image">
-        <button class="counter like_question" data-id="">
+        {% if question.get_author.avatar %}
+        <img src="{{ MEDIA_URL }}{{ question.get_author.avatar.url }}" alt=""  class="question-image">
+        {% else %}
+        <img src="{% static 'img/default.png' %}" alt=""  class="question-image">
+        {% endif %}
+        <span>Question by {{question.get_username}} </span>
+        <button class="counter like_question" data-id="{{ question.id }}">
             <img src="{%static 'img/heart.svg' %}" alt="heart">
-            <span>1</span>
+            <span>{{question.get_like_count}}</span>
         </button>
+
     </div>
     <div class="col-9">
         <div class="question-title"><a href="{% url 'question' q_id=question.id %}"> {{ question.title }}</a></div>
@@ -14,16 +20,18 @@
         <div class="row align-items-end question-meta">
             <div class="col mb-5">
                 <a href="{% url 'question' q_id=question.id %}#answers_block"> Answers
-                    {{question.answers.count}}</a>
+                    {{question.get_answer_count}}</a>
             </div>
             <div class="col mb-5">
                 <span class="tags_title">Tags: </span>
                 <div class="question-tags">
-                    {% for tag in question.tags.all %}
-                     <a class="tag_in_question" href="{% url 'tag' tag_label=tag.title %}">{{ tag.title }}</a>
+                    {% for tag in question.get_tags %}
+                    <a class="tag_in_question" href="{% url 'tag' tag_label=tag %}">{{tag.title}}</a>
                     {% endfor %}
                 </div>
+
             </div>
         </div>
     </div>
+
 </div>

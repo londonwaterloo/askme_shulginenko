@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
 <h1>Questions</h1>
+<a href="{% url 'hot' %}"><h3>See popular questions!</h3></a>
 {% for question in content %}
     {% include 'components/question.html' %}
 {% endfor%}
